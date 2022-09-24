@@ -36,7 +36,6 @@ class Robot:
 
         self.x = x_value
 
-
     @coord_y.setter
     def coord_y(self, y_value):
         print("--> coord_y setter Robot")
@@ -68,8 +67,15 @@ class Robot:
 # print(obj1.x, obj1.y, obj1.f)
 
 class Displacement(Robot):
+    vector_deg = {
+        "NORTH": 0,
+        "EAST": 90,
+        "SOUTH": 180,
+        "WEST": 270
+    }
     # North and South == y axis
     # West and East == x axis
+
     def __init__(self):
         print("--> __init__ Move")
         super().__init__()
@@ -80,27 +86,30 @@ class Displacement(Robot):
     def move_forward(self):
         if self.f == "NORTH":
             print("\n---> move_forward Move NORTH")
-            self.y += 1
+            self.y += self.__step
             self.coord_y = self.y
+            print(f"--> Deg: {self.vector_deg[self.f]}")
             print(self.x, self.y, self.f)
 
         if self.f == "SOUTH":
             print("\n---> move_forward Move SOUTH")
             self.y -= 1
             self.coord_y = self.y
+            print(f"--> Deg: {self.vector_deg[self.f]}")
             print(self.x, self.y, self.f)
-
 
         if self.f == "WEST":
             print("\n---> move_forward Move WEST")
             self.x -= 1
             self.coord_x = self.x
+            print(f"--> Deg: {self.vector_deg[self.f]}")
             print(self.x, self.y, self.f)
 
         if self.f == "EAST":
             print("\n---> move_forward Move EAST")
             self.x += 1
             self.coord_x = self.x
+            print(f"--> Deg: {self.vector_deg[self.f]}")
             print(self.x, self.y, self.f)
 
     def rotate90deg(self):
@@ -109,12 +118,19 @@ class Displacement(Robot):
 
 print("\n------------------")
 obj2 = Displacement()
+
+print("\n------------------")
 obj2.move_forward()
 obj2.move_forward()
 
+print("\n------------------")
 obj2.vector_f = "EAST"
 obj2.move_forward()
 obj2.move_forward()
 
+print("\n------------------")
 obj2.vector_f = "SOUTH"
 obj2.move_forward()
+
+print("\n------------------")
+print(obj2.vector_deg)

@@ -28,3 +28,13 @@ class Hello(Hey):
 
 
 obj2 = Hello(1, 1)
+
+
+# -------------------------------------------------ç
+vector_deg = {
+    "NORTH": 0,
+    "EAST": 90,
+    "SOUTH": 180,
+    "WEST": 270
+}
+print(vector_deg["NORTH"])
