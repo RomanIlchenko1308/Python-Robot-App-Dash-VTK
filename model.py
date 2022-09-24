@@ -1,54 +1,65 @@
-# --------------------------------------
+# -----------------------------------------------------------------------------
 # PythonRobotApp
 
-# MoveFunction
-def MoveFunction(current_row, destinationCol,
-                 destination_row, destinationRow):
-    # sedk size 5x5
+class Robot:
 
-    widthDesk = 5
+    def __init__(self, x=0, y=0, f="NORTH"):
+        print("--> __init__ Robot")
+        self.coord_x = x
+        self.coord_y = y
+        self.vector_f = f
 
-    if currentRow == destination_row:
-        return "POSSIBLE"
-    elif currentCol == destinationCol:
-        return "POSSIBLE"
-    else:
-        return "NOT POSSIBLE"
+    # getters
+    @property
+    def coord_x(self):
+        print("--> coordX getter Robot")
+        return f"My coordinate x is {self.x}"
 
+    @property
+    def coord_y(self):
+        print("--> coordY getter Robot")
+        return f"My coordinate y is {self.y}"
 
-# Driver Code
-currentRow = 0
-currentCol = 0
-destinationRow = 1
-destinationCol = 5
+    @property
+    def vector_f(self):
+        print("--> vector_f getter Robot")
+        return f"Vector orientation x is {self.f}"
 
-output = MoveFunction(currentRow, currentCol, destinationRow, destinationCol)
-print(output)
+    # setters
+    @coord_x.setter
+    def coord_x(self, x_value):
+        print("--> coord_x setter Robot")
 
+        # check coordinate value
+        if not (0 <= x_value <= 4):
+            raise ValueError("F***ck get you right coordinate between 0 and 4")
 
-class Hey:
-    globalName = "Roman"
-
-    def __init__(self):
-        print("--> __init__ Hey")
-        self.global_init_name = self.globalName
-        print(self.global_init_name)
-
-
-class HelloMr(Hey):
-    def __init__(self):
-        print("--> __init__ HelloMr")
-        super().__init__()
-        self.lastName = "Ilchenko"
-
-    def greetings(self):
-        print("--> greetings HelloMr")
-        return f"Good afternoon {self.globalName} {self.lastName}"
+        self.x = x_value
 
 
-romanObj1 = Hey()
+    @coord_y.setter
+    def coord_y(self, y_value):
+        print("--> coord_y setter Robot")
+        # check coordinate value
+        if not (0 <= y_value <= 4):
+            raise ValueError("F***ck get you right coordinate between 0 and 4")
 
-print("----------------")
-romanObj2 = HelloMr()
-greetingToRomanIlchenko = romanObj2.greetings()
-print(greetingToRomanIlchenko)
+        self.y = y_value
+
+    @vector_f.setter
+    def vector_f(self, vec_direction):
+        print("--> vector_f setter Robot")
+        # check coordinate valueNORTH, SOUTH, EAST or WEST
+        if not (vec_direction.upper()  in ["NORTH", "SOUTH", "EAST", "WEST"]):
+            raise ValueError("F***ck get you right vector direction between: 'NORTH', 'SOUTH', 'EAST', 'WEST'")
+
+        self.f = vec_direction
+
+
+print("\n------------------")
+obj1 = Robot(0, 0, "SOUTH")
+
+print("\n------------------")
+print(obj1.coord_x)
+print(obj1.coord_y)
+print(obj1.vector_f)
