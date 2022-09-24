@@ -1,9 +1,30 @@
+# value = 10
+#
+# print(not (0 <= value <= 4))
+#
+# vec_direction = "north"
+#
+# print(vec_direction.upper() in ["NORTH", "SOUTH", "EAST", "WEST"])
+
+# ------
+class Hey:
+    def __init__(self, x=0, y=0):
+        print("--> __init__ Hey")
+        self.x = x
+        self.y = y
+        print("--> ", self.x, self.y)
 
 
-value = 10
+class Hello(Hey):
+    def __init__(self, x, y):
+        print("--> __init__ Hello")
+        super().__init__(x, y)
+        self.f = "North"
+        self.print_out()
 
-print(not (0 <= value <= 4))
+    def print_out(self):
+        print("--> print_out Hello")
+        print(f"{self.x}, {self.y}, {self.f}")
 
-vec_direction = "north"
 
-print(vec_direction.upper() in ["NORTH", "SOUTH", "EAST", "WEST"])
+obj2 = Hello(1, 1)
