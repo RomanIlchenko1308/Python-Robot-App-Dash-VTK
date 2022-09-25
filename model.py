@@ -67,62 +67,47 @@ class Robot:
 # print(obj1.x, obj1.y, obj1.f)
 
 class Displacement(Robot):
-    __vector_deg = {
-        "NORTH": 0,
-        "EAST": 90,
-        "SOUTH": 180,
-        "WEST": 270
-    }
+    __vector_deg = ["EAST", "NORTH", "WEST", "SOUTH"]
     # North and South == y axis
     # West and East == x axis
 
     def __init__(self):
-        print("--> __init__ Move")
+        print("--> __init__ Displacement")
         super().__init__()
         self.__step = 1
-        self.current_angle = self.__vector_deg["NORTH"]
+        self.current_angle = self.__vector_deg.index("NORTH") * 90
         print(self.x, self.y, self.f)
 
     def move_forward(self):
+        print("--> move_forward Displacement")
         if self.f == "NORTH":
             print("\n---> move_forward Move NORTH")
             self.y += self.__step
             self.coord_y = self.y
-            print(f"--> Deg: {self.__vector_deg[self.f]}")
+            print(f"--> Deg: {self.__vector_deg.index(self.f) * 90} ")
             print(self.x, self.y, self.f)
 
         if self.f == "SOUTH":
             print("\n---> move_forward Move SOUTH")
             self.y -= self.__step
             self.coord_y = self.y
-            print(f"--> Deg: {self.__vector_deg[self.f]}")
+            print(f"--> Deg: {self.__vector_deg.index(self.f) * 90} ")
             print(self.x, self.y, self.f)
 
         if self.f == "WEST":
             print("\n---> move_forward Move WEST")
             self.x -= self.__step
             self.coord_x = self.x
-            print(f"--> Deg: {self.__vector_deg[self.f]}")
+            print(f"--> Deg: {self.__vector_deg.index(self.f) * 90} ")
             print(self.x, self.y, self.f)
 
         if self.f == "EAST":
             print("\n---> move_forward Move EAST")
             self.x += self.__step
             self.coord_x = self.x
-            print(f"--> Deg: {self.__vector_deg[self.f]}")
+            print(f"--> Deg: {self.__vector_deg.index(self.f) * 90} ")
             print(self.x, self.y, self.f)
 
-    def rot_left(self):
-        print("--> rot_left Rotate")
-        self.current_angle -= 90
-        print(f"The current angle is: {self.current_angle} and direction is ")
-        return self.current_angle
-
-    def rot_right(self):
-        print("--> rot_right Rotate")
-        self.current_angle += 90
-        print(f"The current angle is: {self.current_angle}")
-        return self.current_angle
 
 
 print("\n------------------")
@@ -140,3 +125,10 @@ obj2.move_forward()
 print("\n------------------")
 obj2.vector_f = "SOUTH"
 obj2.move_forward()
+obj2.move_forward()
+
+print("\n------------------")
+obj2.vector_f = "EAST"
+obj2.move_forward()
+obj2.move_forward()
+
