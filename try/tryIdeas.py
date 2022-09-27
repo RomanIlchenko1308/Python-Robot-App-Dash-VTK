@@ -100,22 +100,3 @@ rot_obj2 = Rotate()
 # -------------------------------------------------
 list1: List[str] = ["EAST", "NORTH", "WEST", "SOUTH"]
 
-
-def rotate(direction):
-    iter_i = list1.index("NORTH")
-    print(iter_i)
-
-rotate("LEFT")
-
-# ---------------------
-initVal = 0
-def sum_Func():
-    sumval = 0
-    sumval += 1
-    initVal = sumval
-    print(sumval, initVal)
-    return sum
-
-sum_Func()
-sum_Func()
-sum_Func()
