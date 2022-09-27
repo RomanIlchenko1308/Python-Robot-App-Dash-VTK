@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------- */
+.bodyDiv {
+  font-family: sans-serif;
+  color: #343a40;
+  font-size: 18px;
+
+  /*we need the body to be as high as the viewport*/
+  height: 100vh;
+
+  text-align: center;
+  font-weight: bold;
+
+  /*define grid*/
+  display: grid;
+
+  /*disfine size of the each column*/
+  /*1fr - occupy all remaining space*/
+  grid-template-columns: 300px 3fr 1fr;
+  /*define size of the each row*/
+  grid-template-rows: 80px 1fr;
+}
+
+/* ------------------------------------- */
+.appGitHub {
+  background-color: #7048e8;
+  color: #fff;
+  /**/
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+}
+
+.appGitHub img {
+  width: 50px;
+  height: 50px;
+}
+
+/* .appGitHub img:last-child() {
+  margin-left: auto;
+} */
+
+.githubLogo {
+  margin-left: auto;
+}
+
+/* ------------------------------------- */
+.menuControlFlow {
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  background-color: #e9ecef;
+  padding: 40px;
+  gap: 40px;
+}
+
+.menuControlFlow button {
+  background-color: aqua;
+  height: 50px;
+  border: none;
+  border-radius: 12px;
+}
+
+/* ------------------------------------- */
+.vtkVisualization {
+  grid-column: 2/3;
+  background-color: #e848c3;
+}
+/* ------------------------------------- */
+.manualCommands {
+  grid-column: 3/4;
+  background-color: #e8d348;
+}
