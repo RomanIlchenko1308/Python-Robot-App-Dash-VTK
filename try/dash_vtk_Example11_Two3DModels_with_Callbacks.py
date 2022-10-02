@@ -28,15 +28,16 @@ def cubeModel(range_x_y_z):
     # mesh_state = to_mesh_state(grid)
 
     # ---
-    filename = pv.read("Mode1.stl")
-    print("----------------------")
-    print(filename)
+    filename = pv.read("cube_10_x_10_x_10mm_moved_z_dir_10mm.stl")
     # filename.rotate_vector((1, 0, 0), 90)
     filename.scale([0.1, 0.1, 0.1])
-    filename.translate([10, 10, 10])
+    # filename.translate([10, 10, 10])
+
+    # ---
     mesh = pv.Plane()
-    print("----------------------")
-    print(mesh)
+
+
+    # ---
     mesh = mesh.merge(filename)
     mesh_state = to_mesh_state(mesh)
 
