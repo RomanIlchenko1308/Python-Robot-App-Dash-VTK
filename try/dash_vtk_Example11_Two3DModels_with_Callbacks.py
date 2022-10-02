@@ -4,11 +4,6 @@ from dash_vtk.utils import to_mesh_state
 import pyvista as pv
 import numpy as np
 
-plane = pv.Plane()
-plane_state = to_mesh_state(plane)
-print(plane)
-
-
 # ---------------------------------------------------------
 def cubeModel(range_x_y_z):
     # ---
@@ -33,6 +28,7 @@ def cubeModel(range_x_y_z):
     filename.scale([0.1, 0.1, 0.1])
     # filename.origin(5, 5, 0)
     filename.translate([1, 0, -1])
+
 
     # ---
     mesh = pv.Plane()
@@ -65,6 +61,7 @@ app.layout = html.Div(
             ], property={
                 "edgeVisibility": True,
                 "edgeColor": (0.5, 0, 0.5),
+                "color": (171/100, 235/100, 52/100)
             }),
         ]),
 
