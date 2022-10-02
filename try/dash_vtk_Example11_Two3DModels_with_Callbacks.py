@@ -31,11 +31,11 @@ def cubeModel(range_x_y_z):
     filename = pv.read("cube_10_x_10_x_10mm_moved_z_dir_10mm.stl")
     # filename.rotate_vector((1, 0, 0), 90)
     filename.scale([0.1, 0.1, 0.1])
-    # filename.translate([10, 10, 10])
+    # filename.origin(5, 5, 0)
+    filename.translate([1, 0, -1])
 
     # ---
     mesh = pv.Plane()
-
 
     # ---
     mesh = mesh.merge(filename)
