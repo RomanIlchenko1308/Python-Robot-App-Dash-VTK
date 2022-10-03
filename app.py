@@ -10,7 +10,7 @@ import pandas as pd
 def place_robot(input_x=0, input_y=0, input_f=0):
     # ---
     # Import 3D model
-    filename = pv.read("Simplified_Robot.stl")
+    filename = pv.read("RobotTruck.stl")
     filename.scale([0.1, 0.1, 0.1], inplace=True)
 
     # ---
