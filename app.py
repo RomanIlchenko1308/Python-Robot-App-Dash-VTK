@@ -9,9 +9,6 @@ import pandas as pd
 # ---------------------------------------------------------
 def place_robot(input_x=0, input_y=0, input_f=0):
     # ---
-    directions = ["North", "West", "South", "East"]
-
-    # ---
     # Import 3D model
     filename = pv.read("Simplified_Robot.stl")
     filename.scale([0.1, 0.1, 0.1], inplace=True)
@@ -189,7 +186,7 @@ def update_place_btn(input_x, input_y, input_f,
 
     # check which button was clicked:
     button_clicked = ctx.triggered_id
-    print(button_clicked)
+    # print(button_clicked)
 
     # Home Button
     if button_clicked == "home-btn":
@@ -204,7 +201,7 @@ def update_place_btn(input_x, input_y, input_f,
     # Turn Left Button
     if button_clicked == "left-btn":
         input_f = input_f + 90
-        print(f"--> Left, angel is: {input_f}")
+        # print(f"--> Left, angel is: {input_f}")
 
         if input_f == 360:
             input_f = 0
@@ -217,7 +214,7 @@ def update_place_btn(input_x, input_y, input_f,
 
         if input_f == -360:
             input_f = 0
-        print(f"--> Right, angel is: {input_f}")
+        # print(f"--> Right, angel is: {input_f}")
 
         text_area += f"\nRIGHT,{input_x},{input_y},{input_f}"
 
