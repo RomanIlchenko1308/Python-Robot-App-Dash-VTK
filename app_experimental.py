@@ -4,6 +4,7 @@ import dash_vtk
 from dash_vtk.utils import to_mesh_state
 import pyvista as pv
 from dash.exceptions import PreventUpdate
+import pandas as pd
 
 
 # ---------------------------------------------------------
@@ -40,6 +41,13 @@ def place_robot(input_x=0, input_y=0, input_f=0):
 
     return mesh_state
 
+
+# ---------------------------------------------------------
+def txt_output_file(txt_output: str):
+    list_txt_output = txt_output.split("\n")
+    df = pd.DataFrame(list_txt_output, columns=['Commands'])
+    df[['Commands', 'Coord: X', 'Coord: Y', "Vector: F"]] = df['Commands'].str.split(',', expand=True)
+    return str(df)
 
 # ---------------------------------------------------------
 app = dash.Dash(__name__)
@@ -137,7 +145,7 @@ app.layout = html.Div([
             dcc.Textarea(
                 id="text-area",
                 className='textArea',
-                value='Textarea content initialized\nwith multiple lines of text',
+                value='HOME,X,Y,F',
                 style={"width": "100%", "height": "300px"},
             ),
             html.Button(children=[
@@ -148,7 +156,8 @@ app.layout = html.Div([
                             html.Img(src="/assets/img/robot_report_icon.svg", className="robNavLogo")],
                         className="btnText2")
                 ], className="btnTwo"),
-            ], className="button", n_clicks=0),
+            ], className="button", id="btn-download-txt", n_clicks=0),
+            dcc.Download(id="download-text"),
         ], className="manualMenu manualTextBtnBackground"),
     ], className="manualCommandsFlow")
 ], className="bodyDiv")
@@ -203,7 +212,6 @@ def update_place_btn(input_x, input_y, input_f,
 
         text_area += f"\nLEFT,{input_x},{input_y},{input_f}"
 
-
     # Turn Right Button
     if button_clicked == "right-btn":
         input_f = input_f - 90
@@ -219,6 +227,20 @@ def update_place_btn(input_x, input_y, input_f,
            input_x, input_y, input_f, \
            home_clicks, place_clicks, \
            left_click, right_click, text_area
+
+
+@app.callback(
+    Output("download-text", "data"),
+    Input(component_id='text-area', component_property='value'),
+    Input("btn-download-txt", "n_clicks"),
+    prevent_initial_call=True,
+)
+def func(text_output_str, n_clicks):
+    button_clicked = ctx.triggered_id
+
+    if button_clicked == "btn-download-txt":
+        text = txt_output_file(text_output_str)
+        return dict(content=text, filename="hello.txt")
 
 
 if __name__ == '__main__':

@@ -74,4 +74,6 @@ print(df)
 """
 
 # storing the data in JSON format
-df.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
+# df.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
+
+print(str(df))
