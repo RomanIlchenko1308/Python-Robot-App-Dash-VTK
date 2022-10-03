@@ -1,12 +1,64 @@
 # PythonRobotApp
 
-[README Template for Our Project](https://github.com/othneildrew/Best-README-Template)
+![RobotAppOverView](RobotApp.gif)
 
 ## Table of contents
+* [Installation](#installation)
 * [Description](#description)
 * [Constraints](#constraints)
 * [Test Examples](#test-examples)
 * [Deliverables](#deliverables)
+
+## Installation
+
+Install RobotApp-project
+
+Please follow the following steps for local testing:
+  
+  1. Clone the repo
+  
+      ```bash
+        git clone https://github.com/RomanIlchenko1308/PythonRobotApp.git
+        cd PythonRobotApp
+      ```
+  
+  2. Create Virtual Environment with Python
+    
+      ```bash
+        python -m venv venv
+      ```
+    
+  3. Activate Virtual Environment [For Windows]
+  
+    
+      ```bash
+        source venv/scripts/activate
+      ```
+    
+  4. Install `requirements.txt`
+    
+      ```bash
+        pip install -r requirements.txt
+      ```
+  
+  5. Run Robot App
+      
+      ```bash
+        python app.py
+      ```
+      
+   6. Open local in browser
+   
+      ```bash
+        http://127.0.0.1:8050/
+      ```
+      [RobotApp](http://127.0.0.1:8050/)
+      
+   7. If you use Git Bash, to finish work use combination:
+
+      ```bash
+        CTRL + C
+      ```
 
 ### Description
 
