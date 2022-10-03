@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------- */
+/* Main Body Div Element [Grid Styling] */
+.bodyDiv {
+  background: #fbc02d;
+
+  font-family: sans-serif;
+  color: #343a40;
+  font-size: 18px;
+
+  /*we need the body to be as high as the viewport*/
+  height: 100vh;
+
+  text-align: center;
+  font-weight: bold;
+
+  /*define grid*/
+  display: grid;
+
+  /*disfine size of the each column*/
+  /*1fr - occupy all remaining space*/
+  grid-template-columns: 300px 3fr 1fr;
+  /*define size of the each row*/
+  grid-template-rows: 80px 1fr;
+}
+
+/* ------------------------------------- */
+/* header block */
+.projectHeader {
+  background-color: #7048e8;
+  color: #fff;
+  /**/
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+}
+
+/* Robot Logo */
+.projectHeader img {
+  width: 50px;
+  height: 50px;
+}
+
+/* GitHub Logo */
+.githubLogo {
+  margin-left: auto;
+}
+
+/* ------------------------------------- */
+/* Menu Block */
+.menuControlFlow {
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  background-color: #fbc02d;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Buttons block */
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Menu background of Buttons and Contacts */
+.menuButtonsBackground {
+  background: white;
+  padding: 20px;
+  width: 250px;
+  margin: 0 auto;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+
+/* Buttons animation of menu */
+.button {
+  background: #3d4c53;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  overflow: hidden;
+  text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.btnTwo {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin-top: -60px;
+  padding-top: 2px;
+  background: #26a69a;
+  left: -250px;
+  transition: 0.3s;
+}
+
+.btnText {
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+  margin-top: 16px;
+}
+.btnText2 {
+  margin-top: 35px;
+  margin-right: -130px;
+  color: #fff;
+  font-weight: bold;
+}
+.button:hover .btnTwo {
+  /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+.button:hover .btnText {
+  /*When hovering over .button change .btnText*/
+  margin-left: 65px;
+}
+.button:active {
+  /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* button icons */
+.robNavLogo {
+  width: 30px;
+  height: 30px;
+}
+
+/* Input Place Block */
+.inputBoxesBlock {
+  display: grid;
+  padding: 5px;
+  /*disfine size of the each column*/
+  /*1fr - occupy all remaining space*/
+  grid-template-columns: 60px 60px 60px;
+  /*define size of the each row*/
+  grid-template-rows: 30px;
+
+  grid-column-gap: 10px;
+}
+
+/* Contact Block */
+.contactWithMe {
+  margin-top: auto;
+  display: flex;
+  border: #fff;
+  align-items: center;
+  justify-content: center;
+}
+.contactWithMe img {
+  width: 35px;
+  height: 35px;
+}
+
+/* ------------------------------------- */
+/* 3D Visualization Block */
+.vtkFlow {
+  grid-column: 2/3;
+  display: flex;
+  flex-direction: column;
+  background-color: #fbc02d;
+  padding: 20px;
+}
+
+.vtkBackGround {
+  display: flex;
+  flex-direction: column;
+}
+/* ------------------------------------- */
+/* Text Commands Block */
+.manualCommandsFlow {
+  grid-column: 3/4;
+  display: flex;
+  flex-direction: column;
+  background-color: #fbc02d;
+  gap: 20px;
+  padding: 20px;
+}
+
+.manualTextBtnBackground {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  width: 250px;
+  margin: 0 auto;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+}
+
+.textArea {
+  margin-bottom: 40px;
+}
