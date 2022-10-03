@@ -3,35 +3,36 @@ from dash import Dash, dcc, html, Input, Output
 import dash_vtk
 from dash_vtk.utils import to_mesh_state
 import pyvista as pv
+from dash.exceptions import PreventUpdate
 
 
 # ---------------------------------------------------------
-def cubeModel(range_x_y_z):
+def place_robot(input_x=0, input_y=0, input_f=0):
     # ---
-    # x = np.arange(-range_x_y_z, range_x_y_z, 1, dtype=np.float32)
-    # y = np.arange(-range_x_y_z, range_x_y_z, 1, dtype=np.float32)
-    # z = np.arange(-range_x_y_z, range_x_y_z, 1, dtype=np.float32)
-    # x, y, z = np.meshgrid(x, y, z)
-    #
-    # grid = pv.StructuredGrid(x[::-1], y[::-1], z[::-1])
+    directions = ["North", "West", "South", "East"]
 
     # ---
-    # grid = pv.Cube(
-    #     center=(0.0, 0.0, 0.0),
-    #     x_length=range_x_y_z,
-    #     y_length=range_x_y_z,
-    #     z_length=range_x_y_z)
-    # mesh_state = to_mesh_state(grid)
-
-    # ---
-    filename = pv.read("cube_10_x_10_x_10mm_moved_z_dir_10mm.stl")
-    # filename.rotate_vector((1, 0, 0), 90)
+    # Import 3D model
+    filename = pv.read("Simplified_Robot.stl")
     filename.scale([0.1, 0.1, 0.1])
-    # filename.origin(5, 5, 0)
-    filename.translate([1, 0, -1])
 
     # ---
-    mesh = pv.Plane()
+    # XY rotation on 90 deg around z axis
+    filename.rotate_vector((0, 0, 1), input_f)
+
+    # ---
+    # filename.origin(5, 5, 0)
+    filename.translate([input_x, input_y, 0.5])
+
+    # ---
+    mesh = pv.Plane(
+        center=(2, 2, 0),
+        direction=(0, 0, 1),
+        i_size=5,
+        j_size=5,
+        i_resolution=5,
+        j_resolution=5
+    )
 
     # ---
     mesh = mesh.merge(filename)
@@ -66,12 +67,12 @@ app.layout = html.Div([
                             html.Img(src="/assets/img/robot_home_origin_icon.svg", className="robNavLogo")],
                         className="btnText2")
                 ], className="btnTwo"),
-            ], className="button", n_clicks=0),
+            ], className="button", id="home-btn", n_clicks=0),
             html.Div(children=[
                 html.Div(children=[
-                    dcc.Input(id='my-input', className="inputBox inputX", placeholder="X", min=0, max=5, type='number'),
-                    dcc.Input(id='input-y', className="inputBox inputY", placeholder="Y", min=0, max=5, type='number'),
-                    dcc.Input(id='input-f', className="inputBox inputF", placeholder="F", min=0, max=5, type='number'),
+                    dcc.Input(id='input-x', className="inputBox inputX", value=1, min=1, max=5, type='number'),
+                    dcc.Input(id='input-y', className="inputBox inputY", value=1, min=1, max=5, type='number'),
+                    dcc.Input(id='input-f', className="inputBox inputF", value=0, min=-360, max=360, step=90, type='number'),
                 ], className="inputBoxesBlock"),
                 html.Button(children=[
                     html.Div("Place", className="btnText"),
@@ -81,7 +82,7 @@ app.layout = html.Div([
                                 html.Img(src="/assets/img/robot_place_icon.svg", className="robNavLogo")],
                             className="btnText2")
                     ], className="btnTwo"),
-                ], className="button", n_clicks=0),
+                ], className="button", id="place-btn", n_clicks=0),
             ], className="enterPlaceBox"),
 
             html.Button(children=[
@@ -92,7 +93,7 @@ app.layout = html.Div([
                             html.Img(src="/assets/img/robot_turn_left_icon.svg", className="robNavLogo")],
                         className="btnText2")
                 ], className="btnTwo"),
-            ], className="button", n_clicks=0),
+            ], className="button", id="left-btn", n_clicks=0),
             html.Button(children=[
                 html.Div("Right", className="btnText"),
                 html.Div(children=[
@@ -101,7 +102,7 @@ app.layout = html.Div([
                             html.Img(src="/assets/img/robot_turn_right_icon.svg", className="robNavLogo")],
                         className="btnText2")
                 ], className="btnTwo"),
-            ], className="button", n_clicks=0),
+            ], className="button", id="right-btn", n_clicks=0),
 
         ], className="menuButtons menuButtonsBackground"),
         html.Div([
@@ -153,10 +154,27 @@ app.layout = html.Div([
 
 @app.callback(
     Output(component_id='my-output', component_property='state'),
-    Input(component_id='my-input', component_property='value')
+    Output(component_id='input-x', component_property='value'),
+    Output(component_id='input-y', component_property='value'),
+    Output(component_id='input-f', component_property='value'),
+    Output(component_id='home-btn', component_property='n_clicks'),
+    Output(component_id='place-btn', component_property='n_clicks'),
+    Output(component_id='left-btn', component_property='n_clicks'),
+    Output(component_id='right-btn', component_property='n_clicks'),
+    Input(component_id='input-x', component_property='value'),
+    Input(component_id='input-y', component_property='value'),
+    Input(component_id='input-f', component_property='value'),
+    Input(component_id='home-btn', component_property='n_clicks'),
+    Input(component_id='place-btn', component_property='n_clicks'),
+    Input(component_id='left-btn', component_property='n_clicks'),
+    Input(component_id='right-btn', component_property='n_clicks'),
 )
-def update_output_div(input_value):
-    return cubeModel(range_x_y_z=input_value)
+def update_place_btn(input_x, input_y, input_f, home_clicks, place_clicks, left_click, right_click):
+    if home_clicks > 0:
+        home_clicks, place_clicks = 0, 0
+        input_x, input_y, input_f = 1, 1, 0
+
+    return place_robot(input_x - 1, input_y - 1, input_f), input_x, input_y, input_f, home_clicks, place_clicks, left_click, right_click
 
 
 if __name__ == '__main__':
