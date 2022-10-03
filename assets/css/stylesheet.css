@@ -142,7 +142,7 @@
   padding: 5px;
   /*disfine size of the each column*/
   /*1fr - occupy all remaining space*/
-  grid-template-columns: 30px 30px 1fr;
+  grid-template-columns: 60px 60px 60px;
   /*define size of the each row*/
   grid-template-rows: 30px;
 

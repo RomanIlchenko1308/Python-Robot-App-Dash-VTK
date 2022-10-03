@@ -1,5 +1,5 @@
 import dash
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output, ctx
 import dash_vtk
 from dash_vtk.utils import to_mesh_state
 import pyvista as pv
@@ -72,7 +72,8 @@ app.layout = html.Div([
                 html.Div(children=[
                     dcc.Input(id='input-x', className="inputBox inputX", value=1, min=1, max=5, type='number'),
                     dcc.Input(id='input-y', className="inputBox inputY", value=1, min=1, max=5, type='number'),
-                    dcc.Input(id='input-f', className="inputBox inputF", value=0, min=-360, max=360, step=90, type='number'),
+                    dcc.Input(id='input-f', className="inputBox inputF", value=0, min=-360, max=360, step=90,
+                              type='number'),
                 ], className="inputBoxesBlock"),
                 html.Button(children=[
                     html.Div("Place", className="btnText"),
@@ -134,6 +135,7 @@ app.layout = html.Div([
     html.Div([
         html.Div(children=[
             dcc.Textarea(
+                id="text-area",
                 className='textArea',
                 value='Textarea content initialized\nwith multiple lines of text',
                 style={"width": "100%", "height": "300px"},
@@ -161,6 +163,7 @@ app.layout = html.Div([
     Output(component_id='place-btn', component_property='n_clicks'),
     Output(component_id='left-btn', component_property='n_clicks'),
     Output(component_id='right-btn', component_property='n_clicks'),
+    Output(component_id='text-area', component_property='value'),
     Input(component_id='input-x', component_property='value'),
     Input(component_id='input-y', component_property='value'),
     Input(component_id='input-f', component_property='value'),
@@ -168,13 +171,54 @@ app.layout = html.Div([
     Input(component_id='place-btn', component_property='n_clicks'),
     Input(component_id='left-btn', component_property='n_clicks'),
     Input(component_id='right-btn', component_property='n_clicks'),
+    Input(component_id='text-area', component_property='value'),
 )
-def update_place_btn(input_x, input_y, input_f, home_clicks, place_clicks, left_click, right_click):
-    if home_clicks > 0:
+def update_place_btn(input_x, input_y, input_f,
+                     home_clicks, place_clicks,
+                     left_click, right_click,
+                     text_area):
+    # text_area
+
+    # check which button was clicked:
+    button_clicked = ctx.triggered_id
+    print(button_clicked)
+
+    # Home Button
+    if button_clicked == "home-btn":
         home_clicks, place_clicks = 0, 0
         input_x, input_y, input_f = 1, 1, 0
+        text_area += f"\nHOME,{input_x},{input_y},{input_f}"
 
-    return place_robot(input_x - 1, input_y - 1, input_f), input_x, input_y, input_f, home_clicks, place_clicks, left_click, right_click
+    # Place Button
+    if button_clicked == "place-btn":
+        text_area += f"\nPLACE,{input_x},{input_y},{input_f}"
+
+    # Turn Left Button
+    if button_clicked == "left-btn":
+        input_f = input_f + 90
+        print(f"--> Left, angel is: {input_f}")
+
+        if input_f == 360:
+            input_f = 0
+
+        text_area += f"\nLEFT,{input_x},{input_y},{input_f}"
+
+
+    # Turn Right Button
+    if button_clicked == "right-btn":
+        input_f = input_f - 90
+
+        if input_f == -360:
+            input_f = 0
+        print(f"--> Right, angel is: {input_f}")
+
+        text_area += f"\nRIGHT,{input_x},{input_y},{input_f}"
+
+    # text_area = "0"
+    return place_robot(input_x - 1, input_y - 1, input_f), \
+           input_x, input_y, input_f, \
+           home_clicks, place_clicks, \
+           left_click, right_click, text_area
 
 
 if __name__ == '__main__':
