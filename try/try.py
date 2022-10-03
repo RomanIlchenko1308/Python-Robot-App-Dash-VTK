@@ -72,3 +72,6 @@ print(df)
 15     HOME        1        1         0
 16              None     None      None
 """
+
+# storing the data in JSON format
+df.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
